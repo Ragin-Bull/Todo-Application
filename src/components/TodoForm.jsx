@@ -2,15 +2,19 @@ import { useTodo } from "../contexts";
 import { useState } from "react";
 
 function TodoForm() {
-  const [todo, setTodo] = useState("");
+  // Here todo is the message only
+  const [msg, setMsg] = useState("");
+
+  // This is what importing a functionality looks like
   const { addTodo } = useTodo();
 
   const addMe = (eve) => {
+    // To prevent auto-submit to a different route (POST Request)
     eve.preventDefault();
-    if (!todo) return;
-    addTodo({ todo, completed: false });
-    console.log(todo);
-    setTodo("");
+    if (!msg) return;
+    addTodo({ todo: msg, completed: false });
+    console.log(msg);
+    setMsg(""); // This is done to clear the dashboard
   };
 
   return (
@@ -19,10 +23,9 @@ function TodoForm() {
         type="text"
         placeholder="Write Todo..."
         className="w-full border border-black/10 rounded-l-lg px-3 outline-none duration-150 bg-white/20 py-1.5"
-        value={todo}
+        value={msg}
         onChange={(e) => {
-          setTodo(e.target.value);
-          console.log(todo);
+          setMsg(e.target.value);
         }}
       />
       <button

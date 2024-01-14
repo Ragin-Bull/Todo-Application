@@ -7,13 +7,13 @@ function App() {
   const [todos, setTodos] = useState([]);
 
   const addTodo = (todo) => {
-    console.log(todo);
+    //console.log(todo);
     setTodos((prev) => [{ ...todo, id: Date.now() }, ...prev]);
   };
 
   const updateTodo = (id, todo) => {
     setTodos((prev) =>
-      prev.map((prevTodo) => (prevTodo.id === id ? todo : prevTodo))
+      prev.map((prevTodo) => (prevTodo.id === id ? todo : prevTodo)),
     );
   };
 
@@ -24,11 +24,12 @@ function App() {
   const toggleComplete = (id) => {
     setTodos((prev) =>
       prev.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+      ),
     );
   };
 
+  // Getting the array of todos from the Local Storage
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem("todos"));
 
@@ -37,6 +38,7 @@ function App() {
     }
   }, []);
 
+  // Adding new updated Todos to the Local Storage
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
@@ -48,7 +50,7 @@ function App() {
       <div className="bg-[#172842] min-h-screen py-8">
         <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
           <h1 className="text-2xl font-bold text-center mb-8 mt-2">
-            Manage Your Todos
+            Add and Manage your Todos
           </h1>
           <div className="mb-4">
             <TodoForm />
